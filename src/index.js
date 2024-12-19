@@ -10,11 +10,5 @@ const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-  <RecoilRoot>
-    <QueryClientProvider client={queryClient}>
-      <Router>
-        <App />
-      </Router>
-    </QueryClientProvider>
-  </RecoilRoot>
+  <App />
 );
