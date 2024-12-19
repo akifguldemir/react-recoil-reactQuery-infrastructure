@@ -1,17 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useRecoilState } from 'recoil';
 import { authAtom } from '../recoil/atoms/authAtom';
 import { useHistory } from 'react-router-dom';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
   const [auth, setAuth] = useRecoilState(authAtom);
   const history = useHistory();
 
-  const handleLogin = () => {
+  const initialValues = {
+    username: '',
+    password: '',
+  };
+
+  const validationSchema = Yup.object({
+    username: Yup.string().required('Username is required'),
+    password: Yup.string().required('Password is required'),
+  });
+
+  const handleLogin = (values) => {
     // Simulate authentication
-    if (username === 'user' && password === 'password') {
+    if (values.username === 'user' && values.password === 'password') {
       setAuth({ isAuthenticated: true });
       history.push('/protected');
     } else {
@@ -22,19 +32,29 @@ const Login = () => {
   return (
     <div>
       <h1>Login</h1>
-      <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={handleLogin}>Login</button>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleLogin}
+      >
+        {({ isSubmitting }) => (
+          <Form>
+            <div>
+              <label htmlFor="username">Username</label>
+              <Field type="text" name="username" />
+              <ErrorMessage name="username" component="div" />
+            </div>
+            <div>
+              <label htmlFor="password">Password</label>
+              <Field type="password" name="password" />
+              <ErrorMessage name="password" component="div" />
+            </div>
+            <button type="submit" disabled={isSubmitting}>
+              Login
+            </button>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 };
