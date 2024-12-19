@@ -8,10 +8,11 @@ const useAuth = () => {
 
   useEffect(() => {
     const storedAuthState = localStorage.getItem('authState');
-    if (storedAuthState) {
+    if (storedAuthState && storedAuthState !== JSON.stringify(authState)) {
       setAuthState(JSON.parse(storedAuthState));
     }
-  }, [setAuthState]);
+  }, []);
+  
 
   const login = async (credentials) => {
     try {
