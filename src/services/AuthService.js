@@ -1,21 +1,17 @@
-import BaseService from "./BaseService";
+import BaseService from './BaseService';
 
 class AuthService extends BaseService {
-  constructor() {
-    super("/api/auth");
-  }
-
   login(credentials) {
-    return this.post("/login", credentials);
+    return this.post('/auth/login', credentials);
   }
 
   logout() {
-    return this.post("/logout");
+    return this.post('/auth/logout');
   }
 
-  refreshToken() {
-    return this.post("/refresh-token");
+  refreshToken(token) {
+    return this.post('/auth/refresh-token', { token });
   }
 }
 
-export default new AuthService();
+export default new AuthService('/api');
