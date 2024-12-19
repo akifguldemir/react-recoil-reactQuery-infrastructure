@@ -6,14 +6,6 @@ import AuthService from '../services/AuthService';
 const useAuth = () => {
   const [authState, setAuthState] = useRecoilState(authAtom);
 
-  useEffect(() => {
-    const storedAuthState = localStorage.getItem('authState');
-    if (storedAuthState && storedAuthState !== JSON.stringify(authState)) {
-      setAuthState(JSON.parse(storedAuthState));
-    }
-  }, []);
-  
-
   const login = async (credentials) => {
     try {
       const response = await AuthService.login(credentials);

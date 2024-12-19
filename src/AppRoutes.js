@@ -22,13 +22,15 @@ const routes = [
 
 const AppRoutes = () => {
   const authState = useRecoilValue(authAtom);
+  const storedAuthState = localStorage.getItem('authState');
 
+  if (!storedAuthState) {
+    return <Routes><Route key={'/login'} path={'/login'} element={<Navigate to="/login" />} /></Routes>;
+  }
+  
   return (
     <Routes>
       {routes.map((route) => {
-        if (route.path === "/protected" && !authState.isAuthenticated) {
-          return <Route key={route.path} path={route.path} element={<Navigate to="/login" />} />;
-        }
         const Element = withNavigationWatcher(route.element, route.path);
         return <Route key={route.path} path={route.path} element={<Element />} />;
       })}
