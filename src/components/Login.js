@@ -1,14 +1,13 @@
 import React from 'react';
-import { useRecoilState } from 'recoil';
-import { authAtom } from '../recoil/atoms/authAtom';
 import { useHistory } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Container, Row, Col, Form as BootstrapForm, Button } from 'react-bootstrap';
 import Swal from 'sweetalert2';
+import useAuth from '../hooks/useAuth';
 
 const Login = () => {
-  const [auth, setAuth] = useRecoilState(authAtom);
+  const { login } = useAuth();
   const history = useHistory();
 
   const initialValues = {
@@ -21,18 +20,19 @@ const Login = () => {
     password: Yup.string().required('Password is required'),
   });
 
-  const handleLogin = (values) => {
-    // Simulate authentication
-    if (values.username === 'user' && values.password === 'password') {
-      setAuth({ isAuthenticated: true });
-      history.push('/protected');
-      Swal.fire({
-        icon: 'success',
-        title: 'Login successful!',
-        showConfirmButton: false,
-        timer: 1500
-      });
-    } else {
+  const handleLogin = async (values) => {
+    try {
+      const result = await login(values);
+      if (result) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Login successful!',
+          showConfirmButton: false,
+          timer: 1500
+        });
+        history.push('/protected');
+      }
+    } catch (error) {
       Swal.fire({
         icon: 'error',
         title: 'Invalid credentials',

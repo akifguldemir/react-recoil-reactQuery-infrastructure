@@ -2,7 +2,7 @@ import BaseService from './BaseService';
 
 class AuthService extends BaseService {
   login(credentials) {
-    return this.post('/auth/login', credentials);
+    return this.post('https://dummyjson.com/auth/login', credentials);
   }
 
   logout() {
