@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Container, Row, Col, Form as BootstrapForm, Button } from 'react-bootstrap';
@@ -8,7 +8,7 @@ import useAuth from '../hooks/useAuth';
 
 const Login = () => {
   const { login } = useAuth();
-  const navigate = useNavigate();
+  const history = useHistory();
 
   const initialValues = {
     username: '',
@@ -30,7 +30,7 @@ const Login = () => {
           showConfirmButton: false,
           timer: 1500
         });
-        navigate('/protected'); // ProtectedComponent'e yönlendirme
+        history.push('/protected'); // ProtectedComponent'e yönlendirme
       }
     } catch (error) {
       Swal.fire({
