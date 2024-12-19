@@ -13,6 +13,7 @@ const useAuth = () => {
         user: response.data.user,
         accessToken: response.data.accessToken,
         refreshToken: response.data.refreshToken,
+        isAuthenticated: true, // Başarılı login durumunda isAuthenticated true olarak ayarlanır
       });
       return response.data;
     } catch (error) {
@@ -23,7 +24,12 @@ const useAuth = () => {
 
   const logout = () => {
     AuthService.logout();
-    setAuthState({ user: null, accessToken: null, refreshToken: null });
+    setAuthState({
+      user: null,
+      accessToken: null,
+      refreshToken: null,
+      isAuthenticated: false, // Logout durumunda isAuthenticated false olarak ayarlanır
+    });
   };
 
   const refreshToken = async () => {

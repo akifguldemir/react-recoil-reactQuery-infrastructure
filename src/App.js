@@ -8,12 +8,10 @@ import ProtectedRoute from './components/ProtectedRoute';
 import ProtectedComponent from './components/ProtectedComponent';
 import { authAtom } from './recoil/atoms/authAtom';
 
-// QueryClient'ı oluşturun
 const queryClient = new QueryClient();
 
 const App = () => {
   const authState = useRecoilValue(authAtom);
-
   return (
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>

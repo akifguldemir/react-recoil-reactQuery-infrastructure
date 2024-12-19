@@ -6,5 +6,6 @@ export const authAtom = atom({
     user: null,
     accessToken: '',
     refreshToken: '',
+    isAuthenticated: false,
   },
 });
