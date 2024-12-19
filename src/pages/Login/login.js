@@ -30,7 +30,7 @@ export default function Login() {
           showConfirmButton: false,
           timer: 1500
         });
-        navigate('/protected'); // ProtectedComponent'e yönlendirme
+        navigate('/protected');
       }
     } catch (error) {
       Swal.fire({
