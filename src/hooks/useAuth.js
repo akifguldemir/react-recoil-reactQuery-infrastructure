@@ -6,15 +6,24 @@ import AuthService from '../services/AuthService';
 const useAuth = () => {
   const [authState, setAuthState] = useRecoilState(authAtom);
 
+  useEffect(() => {
+    const storedAuthState = localStorage.getItem('authState');
+    if (storedAuthState) {
+      setAuthState(JSON.parse(storedAuthState));
+    }
+  }, [setAuthState]);
+
   const login = async (credentials) => {
     try {
       const response = await AuthService.login(credentials);
-      setAuthState({
+      const newAuthState = {
         user: response.data.user,
         accessToken: response.data.accessToken,
         refreshToken: response.data.refreshToken,
-        isAuthenticated: true, // Başarılı login durumunda isAuthenticated true olarak ayarlanır
-      });
+        isAuthenticated: true,
+      };
+      setAuthState(newAuthState);
+      localStorage.setItem('authState', JSON.stringify(newAuthState));
       return response.data;
     } catch (error) {
       console.error('Login failed', error);
@@ -24,35 +33,29 @@ const useAuth = () => {
 
   const logout = () => {
     AuthService.logout();
-    setAuthState({
+    const newAuthState = {
       user: null,
       accessToken: null,
       refreshToken: null,
-      isAuthenticated: false, // Logout durumunda isAuthenticated false olarak ayarlanır
-    });
+      isAuthenticated: false,
+    };
+    setAuthState(newAuthState);
+    localStorage.removeItem('authState');
   };
 
   const refreshToken = async () => {
     try {
       const response = await AuthService.refreshToken(authState.refreshToken);
-      setAuthState((prevState) => ({
-        ...prevState,
+      const newAuthState = {
+        ...authState,
         accessToken: response.data.accessToken,
-      }));
+      };
+      setAuthState(newAuthState);
+      localStorage.setItem('authState', JSON.stringify(newAuthState));
     } catch (error) {
       console.error('Token refresh failed', error);
     }
   };
-
-  useEffect(() => {
-    if (authState.refreshToken) {
-      const interval = setInterval(() => {
-        refreshToken();
-      }, 15 * 60 * 1000); // Refresh token every 15 minutes
-
-      return () => clearInterval(interval);
-    }
-  }, [authState.refreshToken]);
 
   return { authState, login, logout, refreshToken };
 };
