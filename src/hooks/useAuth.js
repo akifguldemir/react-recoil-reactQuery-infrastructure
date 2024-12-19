@@ -14,10 +14,10 @@ const useAuth = () => {
         accessToken: response.data.accessToken,
         refreshToken: response.data.refreshToken,
       });
-      return response.data; // Başarılı olduğunda döndürülen değer
+      return response.data;
     } catch (error) {
       console.error('Login failed', error);
-      throw error; // Hata durumunda hata fırlat
+      throw error;
     }
   };
 

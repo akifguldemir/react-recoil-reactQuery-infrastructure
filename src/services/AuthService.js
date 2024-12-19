@@ -10,7 +10,7 @@ class AuthService extends BaseService {
   }
 
   refreshToken(token) {
-    return this.post('/auth/refresh-token', { token });
+    return this.post('https://dummyjson.com/auth/refresh', { token });
   }
 }
 
