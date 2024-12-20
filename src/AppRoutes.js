@@ -3,12 +3,11 @@ import Login from "./pages/Login/login";
 import Home from "./pages/home/home";
 import ProtectedComponent from "./pages/protectedComponent/protectedComponent";
 import PublicPage from "./pages/publicpages/publicPage";
-import { authAtom } from './recoil/atoms/authAtom';
-import { useRecoilValue } from 'recoil';
 
 const ProtectedLayout = () => {
-  const authState = useRecoilValue(authAtom);
-  if (authState.isAuthenticated) {
+  const storedAuthState = localStorage.getItem('authState');
+
+  if (storedAuthState) {
     return <Outlet />;
   } else {
     return <Login />;

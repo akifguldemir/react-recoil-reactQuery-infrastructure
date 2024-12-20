@@ -33,8 +33,6 @@ const useAuth = () => {
     };
     setAuthState(newAuthState);
     localStorage.removeItem('authState');
-
-    return true;
   };
 
   const refreshToken = async () => {
@@ -46,6 +44,7 @@ const useAuth = () => {
       };
       setAuthState(newAuthState);
       localStorage.setItem('authState', JSON.stringify(newAuthState));
+      AuthServicesetAuthToken(response.data.accessToken);
     } catch (error) {
       console.error('Token refresh failed', error);
     }

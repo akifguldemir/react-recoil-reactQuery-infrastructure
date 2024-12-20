@@ -11,14 +11,19 @@ class BaseService {
   }
 
   setAuthToken(token) {
-    this.client.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  }
-
-  clearAuthToken() {
-    delete this.client.defaults.headers.common["Authorization"];
+    if (token) {
+      this.client.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    } else {
+      delete this.client.defaults.headers.common['Authorization'];
+    }
   }
 
   get(url, config = {}) {
+    const storedAuthState = localStorage.getItem('authState');
+    if (storedAuthState) {
+      const { accessToken } = JSON.parse(storedAuthState);
+      this.setAuthToken(accessToken);
+    }    
     return this.client.get(url, config);
   }
 
