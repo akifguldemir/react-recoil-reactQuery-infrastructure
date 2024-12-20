@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Container, Row, Col, Form as BootstrapForm, Button } from 'react-bootstrap';
-import Swal from 'sweetalert2';
 import useAuth from '../../hooks/useAuth';
+import { SnackbarProvider, enqueueSnackbar } from 'notistack';
 
 export default function Login() {
   const { login } = useAuth();
@@ -24,21 +24,10 @@ export default function Login() {
     try {
       const result = await login(values);
       if (result) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Login successful!',
-          showConfirmButton: false,
-          timer: 1500
-        });
         navigate('/protected');
       }
     } catch (error) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Invalid credentials',
-        showConfirmButton: false,
-        timer: 1500
-      });
+      enqueueSnackbar('That was easy fail!')
     }
   };
 
@@ -92,6 +81,7 @@ export default function Login() {
           </Formik>
         </Col>
       </Row>
+      <SnackbarProvider />
     </Container>
   );
 };
