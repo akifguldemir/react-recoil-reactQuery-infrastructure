@@ -10,9 +10,7 @@ const App = () => {
   return (
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
-        <Router>
-          <AppRoutes />
-        </Router>
+          <AppRoutes/>;
       </QueryClientProvider>
     </RecoilRoot>
   );
