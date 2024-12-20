@@ -16,7 +16,7 @@ const useAuth = () => {
       };
       setAuthState(newAuthState);
       localStorage.setItem('authState', JSON.stringify(newAuthState));
-      return response.data;
+      return newAuthState.isAuthenticated;
     } catch (error) {
       console.error('Login failed', error);
       throw error;
