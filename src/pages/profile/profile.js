@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import UserService from '../../services/UserService';
 import { userAtom } from '../../recoil/atoms/userAtom';
 import { useRecoilState } from 'recoil';
+import LoadingScreen from '../../components/LoadingScreen/LoadingScreen';
 
 export default function Profile() {
   const [ userState, setUserState ] = useRecoilState(userAtom);
@@ -18,7 +19,7 @@ export default function Profile() {
   });
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <LoadingScreen />;
   }
 
   const handleLogout = () => {
