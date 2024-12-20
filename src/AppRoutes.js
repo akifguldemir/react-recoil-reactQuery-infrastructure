@@ -3,12 +3,14 @@ import Login from "./pages/Login/login";
 import Home from "./pages/home/home";
 import Profile from "./pages/profile/profile";
 import PublicPage from "./pages/publicpages/publicPage";
+import Header from "./components/Header/Header";
 
 const ProtectedLayout = () => {
   const storedAuthState = localStorage.getItem('authState');
 
   if (storedAuthState) {
-    return <Outlet />;
+    return (<><Header/><Outlet /></> ); //fix this
+
   } else {
     return <Navigate to="/login" replace />;
   }
@@ -30,7 +32,7 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: <Profile />,
-      }
+      },
     ],
   },
   {

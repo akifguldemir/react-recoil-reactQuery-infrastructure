@@ -30,11 +30,9 @@ export default function Profile() {
   return (
     <div>
       <h1>Welcome {userState.firstName}</h1>
-      <p>{userState.firstName}</p>
       <p>{userState.lastName}</p>
       <p>{userState.age}</p>
       <p>{userState.email}</p>
-      <img src={userState.image} alt="User" />
       <button onClick={handleLogout}>Logout</button>
     </div>
   );
