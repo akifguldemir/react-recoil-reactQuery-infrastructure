@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet, Navigate } from "react-router-dom";
 import Login from "./pages/Login/login";
 import Home from "./pages/home/home";
 import ProtectedComponent from "./pages/protectedComponent/protectedComponent";
@@ -10,7 +10,7 @@ const ProtectedLayout = () => {
   if (storedAuthState) {
     return <Outlet />;
   } else {
-    return <Login />;
+    return <Navigate to="/login" replace />;
   }
 };
 
