@@ -5,7 +5,7 @@ import { userAtom } from '../../recoil/atoms/userAtom';
 import useAuth from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 
-const Header = ({title}) => {
+const Header = ({ title }) => {
   const userState = useRecoilValue(userAtom);
   const { logout } = useAuth();
   const navigate = useNavigate();

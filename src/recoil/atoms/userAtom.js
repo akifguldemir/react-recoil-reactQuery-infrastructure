@@ -1,4 +1,7 @@
 import { atom } from 'recoil';
+import { recoilPersist } from 'recoil-persist';
+
+const { persistAtom } = recoilPersist();
 
 export const userAtom = atom({
   key: 'userAtom',
@@ -6,8 +9,10 @@ export const userAtom = atom({
     id: null,
     firstName: '',
     lastName: '',
-    age: '',
     email: '',
-    image: ''
+    age: null,
+    image: '',
+    // Diğer kullanıcı bilgileri
   },
+  effects_UNSTABLE: [persistAtom],
 });
