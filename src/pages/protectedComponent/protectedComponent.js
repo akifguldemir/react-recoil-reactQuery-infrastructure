@@ -16,7 +16,7 @@ export default function ProtectedComponent() {
 
   const handleLogout = () => {
     const result = logout();
-    if (result) navigate('/login');
+    if (!result.isAuthenticated) navigate('/login');
   };
 
   return (

@@ -33,6 +33,7 @@ const useAuth = () => {
     };
     setAuthState(newAuthState);
     localStorage.removeItem('authState');
+    return newAuthState;
   };
 
   const refreshToken = async () => {
