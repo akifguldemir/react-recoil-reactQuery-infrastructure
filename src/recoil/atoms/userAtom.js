@@ -12,7 +12,6 @@ export const userAtom = atom({
     email: '',
     age: null,
     image: '',
-    // Diğer kullanıcı bilgileri
   },
   effects_UNSTABLE: [persistAtom],
 });
