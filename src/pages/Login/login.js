@@ -24,7 +24,7 @@ export default function Login() {
     try {
       const result = await login(values);
       if (result) {
-        navigate('/protected');
+        navigate('/profile');
       }
     } catch (error) {
       enqueueSnackbar('Kullanıcı adı veya şifre hatalı !', { variant: 'error', autoHideDuration: 4000 })

@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider, Outlet, Navigate } from "react-router-dom";
 import Login from "./pages/Login/login";
 import Home from "./pages/home/home";
-import ProtectedComponent from "./pages/protectedComponent/protectedComponent";
+import Profile from "./pages/profile/profile";
 import PublicPage from "./pages/publicpages/publicPage";
 
 const ProtectedLayout = () => {
@@ -28,8 +28,8 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/protected",
-        element: <ProtectedComponent />,
+        path: "/profile",
+        element: <Profile />,
       }
     ],
   },

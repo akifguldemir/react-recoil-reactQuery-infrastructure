@@ -6,7 +6,7 @@ import UserService from '../../services/UserService';
 import { userAtom } from '../../recoil/atoms/userAtom';
 import { useRecoilState } from 'recoil';
 
-export default function ProtectedComponent() {
+export default function Profile() {
   const [ userState, setUserState ] = useRecoilState(userAtom);
   const { logout } = useAuth();
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ export default function ProtectedComponent() {
 
   return (
     <div>
-      <h1>Protected Component</h1>
+      <h1>Welcome {userState.firstName}</h1>
       <p>{userState.firstName}</p>
       <p>{userState.lastName}</p>
       <p>{userState.age}</p>
