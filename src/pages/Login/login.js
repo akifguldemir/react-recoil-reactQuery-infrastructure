@@ -27,7 +27,7 @@ export default function Login() {
         navigate('/protected');
       }
     } catch (error) {
-      enqueueSnackbar('That was easy fail!')
+      enqueueSnackbar('Kullanıcı adı veya şifre hatalı !', { variant: 'error', autoHideDuration: 4000 })
     }
   };
 
