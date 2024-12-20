@@ -8,6 +8,36 @@ class BaseService {
         "Content-Type": "application/json",
       },
     });
+
+    // Interceptor to handle token refresh
+    this.client.interceptors.response.use(
+      response => response,
+      async error => {
+        const originalRequest = error.config;
+        if (error.response.status === 401 && !originalRequest._retry) {
+          originalRequest._retry = true;
+          const storedAuthState = localStorage.getItem('authState');
+          if (storedAuthState) {
+            const { refreshToken } = JSON.parse(storedAuthState);
+            try {
+              const response = await this.client.post('/auth/refresh-token', { refreshToken });
+              const newAuthState = {
+                ...JSON.parse(storedAuthState),
+                accessToken: response.data.accessToken,
+              };
+              localStorage.setItem('authState', JSON.stringify(newAuthState));
+              this.setAuthToken(response.data.accessToken);
+              originalRequest.headers['Authorization'] = `Bearer ${response.data.accessToken}`;
+              return this.client(originalRequest);
+            } catch (refreshError) {
+              console.error('Refresh token failed', refreshError);
+              // Handle refresh token failure (e.g., logout user)
+            }
+          }
+        }
+        return Promise.reject(error);
+      }
+    );
   }
 
   setAuthToken(token) {
@@ -23,19 +53,34 @@ class BaseService {
     if (storedAuthState) {
       const { accessToken } = JSON.parse(storedAuthState);
       this.setAuthToken(accessToken);
-    }    
+    }
     return this.client.get(url, config);
   }
 
   post(url, data, config = {}) {
+    const storedAuthState = localStorage.getItem('authState');
+    if (storedAuthState) {
+      const { accessToken } = JSON.parse(storedAuthState);
+      this.setAuthToken(accessToken);
+    }
     return this.client.post(url, data, config);
   }
 
   put(url, data, config = {}) {
+    const storedAuthState = localStorage.getItem('authState');
+    if (storedAuthState) {
+      const { accessToken } = JSON.parse(storedAuthState);
+      this.setAuthToken(accessToken);
+    }
     return this.client.put(url, data, config);
   }
 
   delete(url, config = {}) {
+    const storedAuthState = localStorage.getItem('authState');
+    if (storedAuthState) {
+      const { accessToken } = JSON.parse(storedAuthState);
+      this.setAuthToken(accessToken);
+    }
     return this.client.delete(url, config);
   }
 }
