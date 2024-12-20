@@ -9,7 +9,7 @@ const ProtectedLayout = () => {
   const storedAuthState = localStorage.getItem('authState');
 
   if (storedAuthState) {
-    return (<><Header/><Outlet /></> ); //fix this
+    return (<><Header title='Özyer Portal'/><Outlet /></> );
 
   } else {
     return <Navigate to="/login" replace />;
