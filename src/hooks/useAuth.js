@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { authAtom } from '../recoil/atoms/authAtom';
 import AuthService from '../services/AuthService';
@@ -25,7 +24,7 @@ const useAuth = () => {
   };
 
   const logout = () => {
-    AuthService.logout();
+    // AuthService.logout();
     const newAuthState = {
       user: null,
       accessToken: null,
@@ -34,6 +33,8 @@ const useAuth = () => {
     };
     setAuthState(newAuthState);
     localStorage.removeItem('authState');
+
+    return true;
   };
 
   const refreshToken = async () => {

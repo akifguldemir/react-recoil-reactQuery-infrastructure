@@ -2,11 +2,12 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Login from "./pages/Login/login";
 import Home from "./pages/home/home";
 import ProtectedComponent from "./pages/protectedComponent/protectedComponent";
+import { authAtom } from './recoil/atoms/authAtom';
+import { useRecoilValue } from 'recoil';
 
 const Layout = () => {
-  // const { data: user } = useUser.GetWithToken();
-  const user = true;
-  if (user) {
+  const authState = useRecoilValue(authAtom);
+  if (authState.isAuthenticated) {
     return (
         <Outlet />
     );
