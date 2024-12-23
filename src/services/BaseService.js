@@ -9,7 +9,6 @@ class BaseService {
       },
     });
 
-    // Interceptor to handle token refresh
     this.client.interceptors.response.use(
       response => response,
       async error => {
@@ -31,7 +30,6 @@ class BaseService {
               return this.client(originalRequest);
             } catch (refreshError) {
               console.error('Refresh token failed', refreshError);
-              // Handle refresh token failure (e.g., logout user)
             }
           }
         }
