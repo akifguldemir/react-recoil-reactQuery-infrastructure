@@ -6,9 +6,10 @@ import UserService from '../../services/UserService';
 import { userAtom } from '../../recoil/atoms/userAtom';
 import { useRecoilState } from 'recoil';
 import LoadingScreen from '../../components/LoadingScreen/LoadingScreen';
+import { Container, Row, Col, Card, Button, Image } from 'react-bootstrap';
 
 export default function Profile() {
-  const [ userState, setUserState ] = useRecoilState(userAtom);
+  const [userState, setUserState] = useRecoilState(userAtom);
   const { logout } = useAuth();
   const navigate = useNavigate();
 
@@ -28,12 +29,36 @@ export default function Profile() {
   };
 
   return (
-    <div>
-      <h1>Welcome {userState.firstName}</h1>
-      <p>{userState.lastName}</p>
-      <p>{userState.age}</p>
-      <p>{userState.email}</p>
-      <button onClick={handleLogout}>Logout</button>
-    </div>
+    <Container className="mt-5">
+      <Row className="justify-content-center">
+        <Col xs={12} md={8} lg={6}>
+          <Card>
+            <Card.Body>
+              <div className="d-flex justify-content-between align-items-center">
+                <Card.Title className="text-center">Profile</Card.Title>
+                <Image src={userState.image} roundedCircle width="50" height="50" />
+              </div>
+              <Card.Text>
+                <strong>First Name:</strong> {userState.firstName}
+              </Card.Text>
+              <Card.Text>
+                <strong>Last Name:</strong> {userState.lastName}
+              </Card.Text>
+              <Card.Text>
+                <strong>Age:</strong> {userState.age}
+              </Card.Text>
+              <Card.Text>
+                <strong>Email:</strong> {userState.email}
+              </Card.Text>
+              <div className="d-grid">
+                <Button variant="primary" onClick={handleLogout}>
+                  Logout
+                </Button>
+              </div>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   );
-};
+}
