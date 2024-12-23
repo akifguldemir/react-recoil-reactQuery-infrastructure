@@ -3,6 +3,7 @@ import { useQuery } from 'react-query';
 import { Container, Row, Col, Card, Pagination } from 'react-bootstrap';
 import ProductService from '../../services/ProductService';
 import LoadingScreen from '../../components/LoadingScreen/LoadingScreen';
+import renderPaginationItems from '../../utils/renderPaginationItems';
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,60 +27,7 @@ export default function Home() {
   }
 
   const products = data?.data?.products || [];
-  const totalPages = data?.data?.totalPages || 50;
-
-  const renderPaginationItems = () => {
-    const items = [];
-    const maxPagesToShow = 5;
-    const halfMaxPagesToShow = Math.floor(maxPagesToShow / 2);
-
-    let startPage = Math.max(1, currentPage - halfMaxPagesToShow);
-    let endPage = Math.min(totalPages, currentPage + halfMaxPagesToShow);
-
-    if (currentPage <= halfMaxPagesToShow) {
-      endPage = Math.min(totalPages, maxPagesToShow);
-    }
-
-    if (currentPage + halfMaxPagesToShow >= totalPages) {
-      startPage = Math.max(1, totalPages - maxPagesToShow + 1);
-    }
-
-    if (startPage > 1) {
-      items.push(
-        <Pagination.Item key={1} onClick={() => handlePageChange(1)}>
-          1
-        </Pagination.Item>
-      );
-      if (startPage > 2) {
-        items.push(<Pagination.Ellipsis key="start-ellipsis" />);
-      }
-    }
-
-    for (let page = startPage; page <= endPage; page++) {
-      items.push(
-        <Pagination.Item
-          key={page}
-          active={page === currentPage}
-          onClick={() => handlePageChange(page)}
-        >
-          {page}
-        </Pagination.Item>
-      );
-    }
-
-    if (endPage < totalPages) {
-      if (endPage < totalPages - 1) {
-        items.push(<Pagination.Ellipsis key="end-ellipsis" />);
-      }
-      items.push(
-        <Pagination.Item key={totalPages} onClick={() => handlePageChange(totalPages)}>
-          {totalPages}
-        </Pagination.Item>
-      );
-    }
-
-    return items;
-  };
+  const totalPages = data?.data?.totalPages || 10;
 
   return (
     <Container className="mt-5">
@@ -99,7 +47,7 @@ export default function Home() {
         ))}
       </Row>
       <Pagination className="justify-content-center">
-        {renderPaginationItems()}
+        {renderPaginationItems(currentPage, totalPages, handlePageChange)}
       </Pagination>
     </Container>
   );
