@@ -10,8 +10,6 @@ import { Container, Row, Col, Card, Button, Image } from 'react-bootstrap';
 
 export default function Profile() {
   const [userState, setUserState] = useRecoilState(userAtom);
-  const { logout } = useAuth();
-  const navigate = useNavigate();
 
   const { data, error, isLoading } = useQuery('userData', () => UserService.getUser(), {
     onSuccess: (data) => {
@@ -22,11 +20,6 @@ export default function Profile() {
   if (isLoading) {
     return <LoadingScreen />;
   }
-
-  const handleLogout = () => {
-    const result = logout();
-    if (!result.isAuthenticated) navigate('/login');
-  };
 
   return (
     <Container className="mt-5">
@@ -50,11 +43,6 @@ export default function Profile() {
               <Card.Text>
                 <strong>Email:</strong> {userState.email}
               </Card.Text>
-              <div className="d-grid">
-                <Button variant="primary" onClick={handleLogout}>
-                  Logout
-                </Button>
-              </div>
             </Card.Body>
           </Card>
         </Col>

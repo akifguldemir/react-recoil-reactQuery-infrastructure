@@ -11,8 +11,8 @@ const Header = ({ title }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logout();
-    navigate('/login');
+    const result = logout();
+    if (!result.isAuthenticated) navigate('/login');
   };
 
   return (
