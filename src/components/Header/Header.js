@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, Nav, Button } from 'react-bootstrap';
+import { Navbar, Nav, Button, Container } from 'react-bootstrap';
 import { useRecoilValue } from 'recoil';
 import { userAtom } from '../../recoil/atoms/userAtom';
 import useAuth from '../../hooks/useAuth';
@@ -22,18 +22,20 @@ const Header = ({ title }) => {
 
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
-      <Navbar.Brand href="/">{title}</Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="ms-auto">
-          <Nav.Item className="me-3">
-            <span onClick={ProfilePage} className="navbar-text clickable ">{userState.firstName} {userState.lastName}</span>
-          </Nav.Item>
-          <Nav.Item>
-            <Button variant="outline-light" onClick={handleLogout}>Logout</Button>
-          </Nav.Item>
-        </Nav>
-      </Navbar.Collapse>
+      <Container>
+        <Navbar.Brand href="/">{title}</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ms-auto">
+            <Nav.Item className="me-3">
+              <span onClick={ProfilePage} className="navbar-text clickable">{userState.firstName} {userState.lastName}</span>
+            </Nav.Item>
+            <Nav.Item>
+              <Button variant="outline-light" size="sm" onClick={handleLogout}>Logout</Button>
+            </Nav.Item>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
     </Navbar>
   );
 };
