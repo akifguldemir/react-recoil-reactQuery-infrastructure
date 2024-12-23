@@ -1,7 +1,5 @@
 import React from 'react';
 import { useQuery } from 'react-query';
-import useAuth from '../../hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
 import UserService from '../../services/UserService';
 import { userAtom } from '../../recoil/atoms/userAtom';
 import { useRecoilState } from 'recoil';
