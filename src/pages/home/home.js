@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import { Container, Row, Col, Card, Pagination } from 'react-bootstrap';
 import ProductService from '../../services/ProductService';
+import LoadingScreen from '../../components/LoadingScreen/LoadingScreen';
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -17,7 +18,7 @@ export default function Home() {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingScreen />;
   }
 
   if (error) {
