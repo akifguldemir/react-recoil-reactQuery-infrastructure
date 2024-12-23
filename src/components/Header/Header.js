@@ -4,6 +4,7 @@ import { useRecoilValue } from 'recoil';
 import { userAtom } from '../../recoil/atoms/userAtom';
 import useAuth from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
+import './Header.css';
 
 const Header = ({ title }) => {
   const userState = useRecoilValue(userAtom);
@@ -15,6 +16,10 @@ const Header = ({ title }) => {
     if (!result.isAuthenticated) navigate('/login');
   };
 
+  const ProfilePage = () => {
+    navigate('/profile');
+  };
+
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Navbar.Brand href="/">{title}</Navbar.Brand>
@@ -22,7 +27,7 @@ const Header = ({ title }) => {
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ms-auto">
           <Nav.Item className="me-3">
-            <span className="navbar-text">{userState.firstName} {userState.lastName}</span>
+            <span onClick={ProfilePage} className="navbar-text clickable ">{userState.firstName} {userState.lastName}</span>
           </Nav.Item>
           <Nav.Item>
             <Button variant="outline-light" onClick={handleLogout}>Logout</Button>
