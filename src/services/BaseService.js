@@ -19,7 +19,7 @@ class BaseService {
           if (storedAuthState) {
             const { refreshToken } = JSON.parse(storedAuthState);
             try {
-              const response = await this.client.post('/auth/refresh-token', { refreshToken });
+              const response = await this.client.post('/auth/refresh', { refreshToken });
               const newAuthState = {
                 ...JSON.parse(storedAuthState),
                 accessToken: response.data.accessToken,
