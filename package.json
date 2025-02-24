@@ -6,7 +6,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint ."
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -22,9 +23,6 @@
     "recoil": "^0.1.2",
     "recoil-persist": "^5.1.0",
     "yup": "^1.6.1"
-  },
-  "devDependencies": {
-    "prettier": "^2.2.1"
   },
   "browserslist": {
     "production": [
